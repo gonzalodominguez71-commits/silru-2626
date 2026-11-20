@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SilRu Joyas — Joyas que cuentan tu historia</title>
+  <meta name="description" content="Joyas de plata 925 y acero quirúrgico. Envíos a todo el país y cuotas sin interés.">
+
+  <!-- Tipografías de Google Fonts -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       1. VARIABLES: cambiá estos colores y toda
+          la página se actualiza sola
+       ============================================ */
+    :root {
+      --fondo: #fdf7f9;        /* rosado muy claro */
+      --fondo-alt: #fbe9f1;    /* rosado claro */
+      --texto: #1f1a1c;        /* casi negro */
+      --texto-suave: #6b5f64;
+      --rosa: #ff7fbe;
+      --rosa-oscuro: #c93d84;
+      --blanco: #ffffff;
+      --radio: 14px;
+      --sombra: 0 10px 30px rgba(31, 26, 28, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* Hace que los links internos (#seccion) bajen suave */
+    html { scroll-behavior: smooth; }
+
+    /* Deja espacio arriba para que el menú fijo no tape el título de la sección */
+    section { scroll-margin-top: 80px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.15; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .contenedor { width: min(1120px, 90%); margin: 0 auto; }
+
+    .etiqueta {
+      display: inline-block;
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--rosa-oscuro); margin-bottom: 0.75rem; font-weight: 600;
+    }
+
+    .titulo-seccion { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1rem; }
+    .bajada { color: var(--texto-suave); max-width: 560px; }
+    .centrado { text-align: center; }
+    .centrado .bajada { margin: 0 auto; }
+
+    .boton {
+      display: inline-block;
+      padding: 0.9rem 1.8rem; border-radius: 999px;
+      background: var(--texto); color: var(--blanco);
+      font-weight: 500; font-size: 0.95rem;
+      transition: transform .2s, background .2s;
+    }
+    .boton:hover { background: var(--rosa-oscuro); color: var(--blanco); transform: translateY(-2px); }
+    .boton-secundario { background: transparent; color: var(--texto); border: 1px solid var(--texto); }
+    .boton-secundario:hover { background: var(--texto); color: var(--blanco); }
+
+    /* ============================================
+       2. MENÚ DE NAVEGACIÓN
+       ============================================ */
+    .menu {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(253, 247, 249, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(31, 26, 28, 0.06);
+    }
+    .menu .contenedor { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+    .logo { display: flex; align-items: center; }
+    .logo img { height: 52px; width: auto; }   /* tamaño del logo en el menú */
+
+    .menu-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .menu-links a { font-size: 0.9rem; color: var(--texto-suave); transition: color .2s; }
+    .menu-links a:hover { color: var(--texto); }
+    .menu-links .boton { color: var(--blanco); padding: 0.6rem 1.3rem; }
+
+    .hamburguesa { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+    .hamburguesa span { display: block; width: 24px; height: 2px; background: var(--texto); margin: 5px 0; transition: .3s; }
+
+    /* ============================================
+       3. HERO (portada)
+       ============================================ */
+    .hero { padding: 150px 0 90px; }
+    .hero .contenedor { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center; }
+    .hero h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); margin-bottom: 1.25rem; }
+    .hero h1 em { color: var(--rosa); font-style: italic; }
+    .hero p { color: var(--texto-suave); font-size: 1.1rem; margin-bottom: 2rem; max-width: 480px; }
+    .hero-botones { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* Imagen de ejemplo: reemplazala por una foto real con <img src="..."> */
+    .hero-imagen {
+      aspect-ratio: 4/5; border-radius: 200px 200px var(--radio) var(--radio);
+      background: linear-gradient(160deg, #fde4ef 0%, #f7c3dc 100%);
+      display: grid; place-items: center; box-shadow: var(--sombra);
+    }
+    .hero-imagen svg { width: 45%; opacity: .85; }
+
+    /* ============================================
+       4. BENEFICIOS
+       ============================================ */
+    .beneficios { padding: 60px 0; background: var(--fondo-alt); }
+    .beneficios .contenedor { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .beneficio { text-align: center; }
+    .beneficio .icono {
+      width: 56px; height: 56px; margin: 0 auto 1rem; border-radius: 50%;
+      background: var(--blanco); display: grid; place-items: center; color: var(--rosa-oscuro);
+    }
+    .beneficio h3 { font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .beneficio p { font-size: 0.9rem; color: var(--texto-suave); }
+
+    /* ============================================
+       5. COLECCIÓN
+       ============================================ */
+    .coleccion { padding: 100px 0; }
+    .grilla-productos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin: 3rem 0; }
+    .producto { background: var(--blanco); border-radius: var(--radio); overflow: hidden; box-shadow: var(--sombra); transition: transform .25s; }
+    .producto:hover { transform: translateY(-6px); }
+    .producto-foto { aspect-ratio: 1; display: grid; place-items: center; }
+    .producto-foto svg { width: 40%; color: var(--rosa-oscuro); opacity: .7; }
+    .producto-info { padding: 1.1rem 1.2rem 1.3rem; }
+    .producto-info h3 { font-size: 1.25rem; }
+    .producto-info .material { font-size: 0.8rem; color: var(--texto-suave); }
+    .producto-info .precio { margin-top: .5rem; font-weight: 600; }
+    .producto-info .cuotas { font-size: 0.8rem; color: var(--rosa-oscuro); }
+
+    /* ============================================
+       6. NOSOTROS
+       ============================================ */
+    .nosotros { padding: 100px 0; background: var(--texto); color: var(--fondo); }
+    .nosotros .contenedor { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .nosotros .etiqueta { color: var(--rosa); }
+    .nosotros p { color: #d9c9d0; margin-bottom: 1rem; }
+    .nosotros-imagen { aspect-ratio: 1; border-radius: var(--radio); background: linear-gradient(135deg, #fde6f0, #f7c3dc); display: grid; place-items: center; }
+    .nosotros-imagen img { width: 62%; filter: drop-shadow(0 12px 30px rgba(201,61,132,.25)); }
+
+    /* ============================================
+       7. TESTIMONIOS
+       ============================================ */
+    .testimonios { padding: 100px 0; }
+    .grilla-testimonios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .testimonio { background: var(--blanco); padding: 2rem; border-radius: var(--radio); box-shadow: var(--sombra); }
+    .estrellas { color: var(--rosa); letter-spacing: 3px; margin-bottom: 1rem; }
+    .testimonio p { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin-bottom: 1rem; }
+    .testimonio .autor { font-size: 0.85rem; color: var(--texto-suave); }
+
+    /* ============================================
+       8. PREGUNTAS FRECUENTES
+       ============================================ */
+    .faq { padding: 100px 0; background: var(--fondo-alt); }
+    .lista-faq { max-width: 760px; margin: 3rem auto 0; }
+    details { background: var(--blanco); border-radius: var(--radio); margin-bottom: 1rem; padding: 1.2rem 1.5rem; }
+    summary { cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; font-size: 1.5rem; color: var(--rosa); transition: transform .2s; }
+    details[open] summary::after { transform: rotate(45deg); }
+    details p { margin-top: .8rem; color: var(--texto-suave); font-size: 0.95rem; }
+
+    /* ============================================
+       9. CONTACTO + PIE
+       ============================================ */
+    .contacto { padding: 100px 0; text-align: center; }
+    .contacto .hero-botones { justify-content: center; margin-top: 2rem; }
+
+    footer { background: var(--texto); color: #d9c9d0; padding: 50px 0 30px; font-size: 0.9rem; }
+    footer .contenedor { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; }
+    footer .logo-pie { width: 84px; height: 84px; margin-bottom: .8rem; }
+    footer .contenedor > div:first-child { display: flex; flex-direction: column; }
+    @media (max-width: 900px) { footer .contenedor > div:first-child { align-items: center; } }
+    footer h4 { color: var(--fondo); margin-bottom: .8rem; font-weight: 500; }
+    footer ul { list-style: none; }
+    footer li { margin-bottom: .4rem; }
+    footer a:hover { color: var(--rosa); }
+    .copy { text-align: center; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.1); font-size: 0.8rem; }
+
+    /* Botón flotante de WhatsApp */
+    .whatsapp {
+      position: fixed; bottom: 24px; right: 24px; z-index: 90;
+      width: 58px; height: 58px; border-radius: 50%; background: #25d366;
+      display: grid; place-items: center; box-shadow: 0 6px 20px rgba(0,0,0,.2);
+      transition: transform .2s;
+    }
+    .whatsapp:hover { transform: scale(1.08); }
+    .whatsapp svg { width: 30px; fill: white; }
+
+    /* ============================================
+       10. CELULAR (pantallas chicas)
+       ============================================ */
+    @media (max-width: 900px) {
+      .hamburguesa { display: block; }
+      .menu-links {
+        position: absolute; top: 70px; left: 0; right: 0;
+        flex-direction: column; gap: 0; background: var(--fondo);
+        max-height: 0; overflow: hidden; transition: max-height .35s;
+        box-shadow: 0 10px 20px rgba(0,0,0,.05);
+      }
+      .menu-links.abierto { max-height: 420px; }
+      .menu-links li { width: 100%; text-align: center; }
+      .menu-links a { display: block; padding: 1rem; }
+      .menu-links .boton { margin: .5rem auto 1.2rem; display: inline-block; }
+
+      .hero { padding: 110px 0 60px; }
+      .hero .contenedor, .nosotros .contenedor { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-imagen { max-width: 340px; margin: 0 auto; }
+      .beneficios .contenedor, .grilla-productos { grid-template-columns: repeat(2, 1fr); }
+      .grilla-testimonios { grid-template-columns: 1fr; }
+      footer .contenedor { grid-template-columns: 1fr; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================
+       MENÚ
+       Cada link con "#algo" lleva a la sección que tiene
+       id="algo". Ej: href="#coleccion" → <section id="coleccion">
+       ===================================================== -->
+  <header class="menu">
+    <div class="contenedor">
+      <a href="#inicio" class="logo"><img src="logo-texto.png" alt="SilRu Joyas"></a>
+
+      <button class="hamburguesa" aria-label="Abrir menú" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="menu-links" id="menuLinks">
+        <li><a href="#coleccion">Colección</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#testimonios">Opiniones</a></li>
+        <li><a href="#faq">Preguntas</a></li>
+        <!-- Este link NO es interno: abre OTRA página del sitio -->
+        <li><a href="coleccion.html">Tienda</a></li>
+        <li><a href="#contacto" class="boton">Contacto</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="inicio">
+    <div class="contenedor">
+      <div>
+        <span class="etiqueta">Nueva colección</span>
+        <h1>Joyas que cuentan <em>tu historia</em></h1>
+        <p>Piezas de plata 925 y acero quirúrgico, elegidas una por una. Para regalar o para regalarte.</p>
+        <div class="hero-botones">
+          <a href="#coleccion" class="boton">Ver colección</a>
+          <a href="#contacto" class="boton boton-secundario">Consultar</a>
+        </div>
+      </div>
+      <div class="hero-imagen">
+        <!-- Reemplazá este SVG por: <img src="fotos/portada.jpg" alt="Collar de plata"> -->
+        <svg viewBox="0 0 100 100" fill="none" stroke="#c93d84" stroke-width="2">
+          <path d="M20 15 Q50 75 80 15" />
+          <circle cx="50" cy="62" r="4" fill="#c93d84" />
+          <path d="M44 66 L50 82 L56 66 Z" fill="#ff7fbe" stroke="none" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BENEFICIOS ===================== -->
+  <section class="beneficios">
+    <div class="contenedor">
+      <div class="beneficio">
+        <div class="icono"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+        <h3>Cuotas sin interés</h3>
+        <p>Con todas las tarjetas</p>
+      </div>
+      <div class="beneficio">
+        <div class="icono"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div>
+        <h3>Envíos a todo el país</h3>
+        <p>Embalaje seguro y discreto</p>
+      </div>
+      <div class="beneficio">
+        <div class="icono"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5 2 7.5-6.5-4.5L5.5 21l2-7.5L2 9h7z"/></svg></div>
+        <h3>Materiales garantizados</h3>
+        <p>Plata 925 y acero quirúrgico</p>
+      </div>
+      <div class="beneficio">
+        <div class="icono"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></div>
+        <h3>Cambios sin vueltas</h3>
+        <p>Si el talle no va, lo cambiamos</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== COLECCIÓN ===================== -->
+  <section class="coleccion" id="coleccion">
+    <div class="contenedor centrado">
+      <span class="etiqueta">Lo más elegido</span>
+      <h2 class="titulo-seccion">Nuestra colección</h2>
+      <p class="bajada">Una selección de las piezas favoritas. Todas vienen en cajita lista para regalar.</p>
+
+      <div class="grilla-productos">
+        <!-- PRODUCTO: copiá este bloque para sumar más -->
+        <article class="producto">
+          <div class="producto-foto" style="background:#fde6f0">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><circle cx="50" cy="58" r="26"/><path d="M40 30 L50 18 L60 30 Z" fill="currentColor"/></svg>
+          </div>
+          <div class="producto-info">
+            <h3>Anillo Luna</h3>
+            <p class="material">Plata 925</p>
+            <p class="precio">$28.500</p>
+            <p class="cuotas">3 cuotas sin interés</p>
+          </div>
+        </article>
+
+        <article class="producto">
+          <div class="producto-foto" style="background:#fbe0ec">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><circle cx="35" cy="40" r="10"/><circle cx="65" cy="40" r="10"/><path d="M35 50 v20 M65 50 v20"/><circle cx="35" cy="75" r="5" fill="currentColor"/><circle cx="65" cy="75" r="5" fill="currentColor"/></svg>
+          </div>
+          <div class="producto-info">
+            <h3>Aros Gota</h3>
+            <p class="material">Acero quirúrgico</p>
+            <p class="precio">$18.900</p>
+            <p class="cuotas">3 cuotas sin interés</p>
+          </div>
+        </article>
+
+        <article class="producto">
+          <div class="producto-foto" style="background:#fdebf3">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><path d="M15 20 Q50 80 85 20"/><circle cx="50" cy="60" r="7" fill="currentColor"/></svg>
+          </div>
+          <div class="producto-info">
+            <h3>Collar Brisa</h3>
+            <p class="material">Plata 925</p>
+            <p class="precio">$34.000</p>
+            <p class="cuotas">6 cuotas sin interés</p>
+          </div>
+        </article>
+
+        <article class="producto">
+          <div class="producto-foto" style="background:#f9dbe8">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><ellipse cx="50" cy="50" rx="34" ry="22"/><circle cx="50" cy="28" r="4" fill="currentColor"/><circle cx="30" cy="35" r="3" fill="currentColor"/><circle cx="70" cy="35" r="3" fill="currentColor"/></svg>
+          </div>
+          <div class="producto-info">
+            <h3>Pulsera Sol</h3>
+            <p class="material">Acero dorado</p>
+            <p class="precio">$22.700</p>
+            <p class="cuotas">3 cuotas sin interés</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Link a OTRA página -->
+      <a href="coleccion.html" class="boton">Ver toda la colección →</a>
+    </div>
+  </section>
+
+  <!-- ===================== NOSOTROS ===================== -->
+  <section class="nosotros" id="nosotros">
+    <div class="contenedor">
+      <div class="nosotros-imagen">
+        <img src="logo-circulo.png" alt="Logo de SilRu Joyas">
+      </div>
+      <div>
+        <span class="etiqueta">Nuestra historia</span>
+        <h2 class="titulo-seccion">Un emprendimiento hecho a mano y con cariño</h2>
+        <p>SilRu nació de la pasión por las joyas que duran. Cada pieza la elegimos pensando en quién la va a usar: que sea linda, que sea de buena calidad y que tenga un precio justo.</p>
+        <p>Atendemos personalmente cada consulta para ayudarte a encontrar el regalo ideal.</p>
+        <a href="#contacto" class="boton" style="background:var(--rosa); color:var(--texto); margin-top:1rem;">Hablemos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIOS ===================== -->
+  <section class="testimonios" id="testimonios">
+    <div class="contenedor centrado">
+      <span class="etiqueta">Opiniones</span>
+      <h2 class="titulo-seccion">Lo que dicen nuestras clientas</h2>
+      <!-- Ojo: reemplazá estos textos de ejemplo por opiniones reales -->
+      <div class="grilla-testimonios">
+        <div class="testimonio">
+          <div class="estrellas">★★★★★</div>
+          <p>"Texto de ejemplo: acá va la opinión de una clienta real."</p>
+          <span class="autor">— Nombre, Ciudad</span>
+        </div>
+        <div class="testimonio">
+          <div class="estrellas">★★★★★</div>
+          <p>"Texto de ejemplo: acá va la opinión de una clienta real."</p>
+          <span class="autor">— Nombre, Ciudad</span>
+        </div>
+        <div class="testimonio">
+          <div class="estrellas">★★★★★</div>
+          <p>"Texto de ejemplo: acá va la opinión de una clienta real."</p>
+          <span class="autor">— Nombre, Ciudad</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PREGUNTAS FRECUENTES ===================== -->
+  <section class="faq" id="faq">
+    <div class="contenedor centrado">
+      <span class="etiqueta">Ayuda</span>
+      <h2 class="titulo-seccion">Preguntas frecuentes</h2>
+    </div>
+    <div class="contenedor lista-faq">
+      <details>
+        <summary>¿Cómo puedo pagar?</summary>
+        <p>Con tarjeta de crédito o débito, transferencia o efectivo. Con tarjeta podés pagar en cuotas sin interés.</p>
+      </details>
+      <details>
+        <summary>¿Hacen envíos?</summary>
+        <p>Sí, enviamos a todo el país. El costo y el tiempo de entrega dependen de tu código postal.</p>
+      </details>
+      <details>
+        <summary>¿Qué pasa si el anillo no me queda?</summary>
+        <p>Lo cambiamos por otro talle. Tenés 30 días desde que lo recibís, sin uso y en su caja original.</p>
+      </details>
+      <details>
+        <summary>¿Las joyas dan alergia?</summary>
+        <p>Trabajamos con plata 925 y acero quirúrgico, materiales que en general no generan reacciones.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACTO ===================== -->
+  <section class="contacto" id="contacto">
+    <div class="contenedor">
+      <span class="etiqueta">Contacto</span>
+      <h2 class="titulo-seccion">¿Encontraste tu joya?</h2>
+      <p class="bajada" style="margin:0 auto;">Escribinos y te ayudamos a elegir, consultar talles o armar un regalo.</p>
+      <div class="hero-botones">
+        <!-- Cambiá el número: 549 + código de área sin 0 + número sin 15 -->
+        <a href="https://wa.me/5491100000000" target="_blank" class="boton">Escribir por WhatsApp</a>
+        <a href="https://instagram.com/" target="_blank" class="boton boton-secundario">Ver Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PIE ===================== -->
+  <footer>
+    <div class="contenedor">
+      <div>
+        <img src="logo-circulo.png" alt="SilRu Joyas" class="logo-pie">
+        <p>Joyas que cuentan tu historia.</p>
+      </div>
+      <div>
+        <h4>Navegá</h4>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#coleccion">Colección</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="coleccion.html">Tienda</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ayuda</h4>
+        <ul>
+          <li><a href="#faq">Preguntas frecuentes</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copy">© 2026 SilRu Joyas. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/5491100000000" target="_blank" class="whatsapp" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.2 1.2z"/></svg>
+  </a>
+
+  <script>
+    // Abre y cierra el menú en el celular
+    function toggleMenu() {
+      document.getElementById('menuLinks').classList.toggle('abierto');
+    }
+    // Cuando tocás un link del menú, se cierra solo
+    document.querySelectorAll('#menuLinks a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        document.getElementById('menuLinks').classList.remove('abierto');
+      });
+    });
+  </script>
+</body>
+</html>
